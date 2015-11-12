@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace SBD
 {
-    static class Program
+    class Program
     {
+        Tape a, b, c;
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello world!");
+            
         }
     }
 }
