@@ -12,8 +12,9 @@ namespace SBD_1.Core
             Tape c = new Tape("c.txt", "../../../data/in_01.txt");
 
             Log.WriteInfoMessage("Natural sort\n");
-            SortHelper.Distribute(c, new CyclicList<Tape>() { a, b });
-            SortHelper.Merge(c, a, b);
+            CyclicList<Tape> tapes = new CyclicList<Tape>() { a, b };
+            SortHelper.Distribute(c, tapes);
+            SortHelper.Merge(c, tapes);
 
             Log.WriteInfoMessage("End of execution\n");
             Console.ReadKey();

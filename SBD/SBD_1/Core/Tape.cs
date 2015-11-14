@@ -12,7 +12,6 @@ namespace SBD_1.Core
         private int _size;
         private double _lastValue;
 
-
         public Tape(string filePath)
         {
             _filePath = filePath;
@@ -27,11 +26,13 @@ namespace SBD_1.Core
             FileHelper.Copy(inputFilePath, this);
         }
 
-        private double? GetNextValue()
+        public double? GetNextValue()
         {
             if (_index + 1 == _size)
                 return null;
-            return double.Parse(File.ReadLines(_filePath).ElementAt(++_index));
+            double? value = double.Parse(File.ReadLines(_filePath).ElementAt(_index));
+            _index++;
+            return value;
         }
 
         public string FilePath
@@ -67,6 +68,7 @@ namespace SBD_1.Core
 
         public string ShowFile()
         {
+            _index = 0;
             string line = null;
             double? val;
             while ((val = GetNextValue()) != null)
@@ -76,6 +78,16 @@ namespace SBD_1.Core
             }
             _index = 0;
             return line;
+        }
+
+        public void Clean()
+        {
+            FileHelper.CreateFile(_filePath);
+        }
+
+        public void ZeroIndex()
+        {
+            _index = 0;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SBD_1.Core
 {
@@ -37,7 +38,7 @@ namespace SBD_1.Core
             set { _items[Index] = value; }
         }
 
-        private T this[int index]
+        public T this[int index]
         {
             get
             {
@@ -86,6 +87,24 @@ namespace SBD_1.Core
             get { return _index; }
         }
 
+        public Tape Next
+        {
+            get
+            {
+                MoveNext();
+                Tape temp = Current;
+                MoveBack();
+                return temp;
+            }
+        }
+
+        private void MoveBack()
+        {
+            _index = Index - 1;
+            if (_index < 0)
+                _index = _items.Count - 1;
+        }
+
         public bool MoveNext()
         {
             _index = Index + 1;
@@ -112,6 +131,14 @@ namespace SBD_1.Core
             else
                 return false;
 
+        }
+
+        public void Prepare()
+        {
+            //foreach (T t in _items)
+            //    t.ZeroIndex();
+            _items.ForEach(obj => obj.ZeroIndex());
+            _index = 0;
         }
     }
 }
