@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>SBD_1.code.Program</StartupObject>
+    <StartupObject>SBD_1.Core.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,12 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="code\CyclicList.cs" />
+    <Compile Include="Core\CyclicList.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="code\Program.cs" />
+    <Compile Include="Core\Program.cs" />
+    <Compile Include="Helpers\Log.cs" />
     <Compile Include="Helpers\SortHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="code\Tape.cs" />
+    <Compile Include="Core\Tape.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

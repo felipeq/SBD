@@ -1,31 +1,26 @@
 ﻿using System.IO;
+using SBD_1.Core;
 
 namespace SBD_1.Helpers
 {
     public static class FileHelper
     {
-        public static void Copy(string src, string dest)
+        public static void Copy(string src, Tape dest)
         {
             using (StreamReader reader = new StreamReader(src))
             {
-                using (StreamWriter writer = new StreamWriter(dest))
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        writer.WriteLine(line);
-                    }
+                    dest.Append(line);
                 }
             }
         }
-
-        public static void Write(string src, double value)
+        public static void CreateFile(string filePath)
         {
-            using (FileStream fs = new FileStream(src, FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.WriteLine(value);
-            }
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            File.Create(filePath).Close();
         }
     }
 }

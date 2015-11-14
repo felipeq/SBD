@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SBD_1.code
+namespace SBD_1.Core
 {
     public class CyclicList<T> : IEnumerable<T>, IEnumerator<T> where T : Tape
     {
@@ -17,13 +17,13 @@ namespace SBD_1.code
         {
             get
             {
-                return _items[_index].LastValue;
+                return _items[Index].LastValue;
             }
         }
 
         internal void Add(double val)
         {
-            _items[_index].Add(val);
+            _items[Index].Append(val);
         }
 
         internal void ChangeToNextAndAdd(int val)
@@ -33,20 +33,16 @@ namespace SBD_1.code
         }
         public T Value
         {
-            get { return _items[_index]; }
-            set { _items[_index] = value; }
+            get { return _items[Index]; }
+            set { _items[Index] = value; }
         }
-        public T this[int index]
+
+        private T this[int index]
         {
             get
             {
                 RangeCheck(index);
                 return _items[index];
-            }
-            set
-            {
-                RangeCheck(index);
-                _items[index] = value;
             }
         }
 
@@ -73,7 +69,7 @@ namespace SBD_1.code
         }
         public T Current
         {
-            get { return this[_index]; }
+            get { return this[Index]; }
         }
 
         public void Dispose()
@@ -82,12 +78,18 @@ namespace SBD_1.code
 
         object IEnumerator.Current
         {
-            get { return this[_index]; }
+            get { return this[Index]; }
         }
+
+        public int Index
+        {
+            get { return _index; }
+        }
+
         public bool MoveNext()
         {
-            ++_index;
-            if (_index == _items.Count)
+            _index = Index + 1;
+            if (Index == _items.Count)
             {
                 Reset();
                 return true;
@@ -102,7 +104,7 @@ namespace SBD_1.code
 
         public bool IsFirstRun()
         {
-            if (_index == -1)
+            if (Index == -1)
             {
                 _index = 0;
                 return true;

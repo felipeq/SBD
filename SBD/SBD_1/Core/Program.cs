@@ -1,7 +1,7 @@
 ﻿using System;
 using SBD_1.Helpers;
 
-namespace SBD_1.code
+namespace SBD_1.Core
 {
     public static class Program
     {
@@ -11,9 +11,12 @@ namespace SBD_1.code
             Tape b = new Tape("b.txt");
             Tape c = new Tape("c.txt", "../../../data/in_01.txt");
 
-            Console.WriteLine("Hello world!");
-            Console.WriteLine("Distribution");
+            Log.WriteInfoMessage("Natural sort\n");
             SortHelper.Distribute(c, new CyclicList<Tape>() { a, b });
+            SortHelper.Merge(c, a, b);
+
+            Log.WriteInfoMessage("End of execution\n");
+            Console.ReadKey();
         }
     }
 }
