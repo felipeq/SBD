@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SBD_1.Helpers;
 
-namespace SBD
+namespace SBD_1.code
 {
 
     public class Tape
     {
-        private string _filePath;
-        private int index = 0;
+        private readonly string _filePath;
+        private int _index;
         private double _lastValue;
-        public Tape(string filePath, bool doOverride)
+        public Tape(string filePath)
         {
             _filePath = filePath;
-            if (doOverride && File.Exists(_filePath))
+            if (File.Exists(_filePath))
                 File.Delete(_filePath);
-            File.Create(_filePath);
+            File.Create(_filePath).Close();
         }
 
-        internal double getNextValue()
+        public Tape(string filePath, string inputFilePath)
+            : this(filePath)
         {
-            return double.Parse(File.ReadLines(_filePath).ElementAt(++index));
+            FileHelper.Copy(inputFilePath, filePath);
+        }
+
+        internal double GetNextValue()
+        {
+            return double.Parse(File.ReadLines(_filePath).ElementAt(++_index));
         }
 
         public string FilePath
@@ -43,12 +46,14 @@ namespace SBD
         }
         public void Add(double val)
         {
-            using (FileStream fs = new FileStream(_filePath, FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.WriteLine(val);
-            }
+            FileHelper.Write(_filePath, val);
             _lastValue = val;
+        }
+
+        public Tape CopyFrom(string dataInTxt)
+        {
+
+            return this;
         }
     }
 }

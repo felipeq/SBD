@@ -1,24 +1,19 @@
-﻿using SBD;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using SBD_1.code;
 
-namespace SBD_1.code
+namespace SBD_1.Helpers
 {
-    static class SortController
+    static class SortHelper
     {
         internal static void Distribute(Tape src, CyclicList<Tape> dest)
         {
-            using (StreamReader reader = new StreamReader(src.FilePath,))
+            using (StreamReader reader = new StreamReader(src.FilePath))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     int val = int.Parse(line);
-                    if (val <= dest.LastValue)
+                    if (dest.IsFirstRun() || val >= dest.LastValue)
                     {
                         dest.Add(val);
                     }
@@ -26,7 +21,6 @@ namespace SBD_1.code
                     {
                         dest.ChangeToNextAndAdd(val);
                     }
-
                 }
             }
         }

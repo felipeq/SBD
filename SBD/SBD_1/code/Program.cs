@@ -1,23 +1,19 @@
-﻿using SBD_1.code;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SBD_1.Helpers;
 
-namespace SBD
+namespace SBD_1.code
 {
-    class Program
+    public static class Program
     {
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Tape a = new Tape("a.txt", true);
-            Tape b = new Tape("b.txt", true);
-            Tape c = new Tape("../../../data/in_01.txt", false);
+            Tape a = new Tape("a.txt");
+            Tape b = new Tape("b.txt");
+            Tape c = new Tape("c.txt", "../../../data/in_01.txt");
+
             Console.WriteLine("Hello world!");
             Console.WriteLine("Distribution");
-            SortController.Distribute(c, new CyclicList<Tape>() { a, b });
+            SortHelper.Distribute(c, new CyclicList<Tape>() { a, b });
         }
     }
 }
