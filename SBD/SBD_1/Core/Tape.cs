@@ -11,7 +11,7 @@ namespace SBD_1.Core
         private int _index;
         private int _size;
         private double _lastValue;
-
+        private bool _isFinished = false;
         public Tape(string filePath)
         {
             _filePath = filePath;
@@ -28,8 +28,12 @@ namespace SBD_1.Core
 
         public double? GetNextValue()
         {
-            if (_index + 1 == _size)
+            if (_index + 1 > _size)
+            {
+                _isFinished = true;
                 return null;
+
+            }
             double? value = double.Parse(File.ReadLines(_filePath).ElementAt(_index));
             _index++;
             return value;
@@ -50,6 +54,12 @@ namespace SBD_1.Core
 
             }
         }
+
+        public bool IsFinished
+        {
+            get { return _isFinished; }
+        }
+
         public void Append(double val)
         {
             using (FileStream fs = new FileStream(_filePath, FileMode.Append, FileAccess.Write))
@@ -59,6 +69,7 @@ namespace SBD_1.Core
             }
             _size++;
             _lastValue = val;
+            //Log.WriteInfoMessage(ShowFile());
         }
 
         public void Append(string line)
@@ -68,6 +79,7 @@ namespace SBD_1.Core
 
         public string ShowFile()
         {
+            int tempIndex = _index;
             _index = 0;
             string line = null;
             double? val;
@@ -76,18 +88,42 @@ namespace SBD_1.Core
 
                 line += val + " ";
             }
-            _index = 0;
+            _index = tempIndex;
             return line;
         }
 
         public void Clean()
         {
             FileHelper.CreateFile(_filePath);
+            _size = 0;
         }
 
         public void ZeroIndex()
         {
             _index = 0;
+            _isFinished = false;
+        }
+
+        public void StepBack()
+        {
+            _index--;
+        }
+
+        public bool IsSorted()
+        {
+            using (StreamReader reader = new StreamReader(_filePath))
+            {
+                double a = -1;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    double b = double.Parse(line);
+                    if (b < a)
+                        return false;
+                    a = b;
+                }
+            }
+            return true;
         }
     }
 }

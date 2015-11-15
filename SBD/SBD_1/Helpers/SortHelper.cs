@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.AccessControl;
 using SBD_1.Core;
 
 namespace SBD_1.Helpers
@@ -8,7 +9,8 @@ namespace SBD_1.Helpers
     {
         internal static void Distribute(Tape src, CyclicList<Tape> tapes)
         {
-            Log.WriteDistMessage("Dist start");
+            //Log.WriteDistMessage("Dist start");
+            tapes.Clean();
             string line;
             using (StreamReader reader = new StreamReader(src.FilePath))
                 while ((line = reader.ReadLine()) != null)
@@ -22,45 +24,83 @@ namespace SBD_1.Helpers
                     else
                     {
                         tapes.ChangeToNextAndAdd(val);
+                        //Log.WriteInfoMessage("NIEPOSORTOWANE!" + val);
                     }
-                    Log.WriteDistMessage("Adding " + val + " to " + tapes.Index + ".", 4);
+                    //Log.WriteDistMessage("Adding " + val + " to " + tapes.Index + ".", 4);
                 }
-            Log.WriteDistMessage("Dist end");
+            Log.WriteDistMessage("A: " + tapes[0].ShowFile());
+            Log.WriteDistMessage("B: " + tapes[1].ShowFile());
+            //Log.WriteDistMessage("Dist end");
         }
 
         public static void Merge(Tape dest, CyclicList<Tape> tapes)
         {
-            Log.WriteMergeMessage("Merge start");
-            Log.WriteMergeMessage("0: " + tapes[0].ShowFile(), 5);
-            Log.WriteMergeMessage("1: " + tapes[1].ShowFile(), 5);
-            Log.WriteMergeMessage("---", 5);
-            Log.WriteMergeMessage("2: " + dest.ShowFile(), 5);
-            Log.WriteMergeMessage("---", 5);
+            //Log.WriteMergeMessage("Merge start");
+            //Log.WriteMergeMessage("A: " + tapes[0].ShowFile(), 5);
+            //Log.WriteMergeMessage("B: " + tapes[1].ShowFile(), 5);
             dest.Clean();
             tapes.Prepare();
-            double a1, b1 = -1, b2;
-            while ((a1 = (double)tapes.Current.GetNextValue()) != null)
+
+            double a1 = (double)tapes.Current.GetNextValue();
+
+            double b1 = -1;
+
+            while (!tapes.Current.IsFinished)
             {
-                b2 = (double)tapes.Next.GetNextValue();
-                if (b2 >= b1)
+                double? nextValue = tapes.Next.GetNextValue();
+                double b2;
+                if (nextValue != null)
+                    b2 = (double)nextValue;
+                else
+                    break; // przepisz resztę taśmy
+                if (b2 >= b1) // czy ciągle na tym samym run-ie
                 {
                     if (b2 <= a1)
                     {
                         b1 = b2;
                         dest.Append(b1);
-                        continue;
                     }
                     else
                     {
+                        dest.Append(a1);
                         tapes.MoveNext();
+                        b1 = a1;
+                        a1 = b2;
                     }
                 }
-                else
+                else // przepisz resztę run-a
                 {
-                    throw new NotImplementedException("przepisz resztę z taśmy");
+                    b1 = b2;
+                    double a2 = a1;
+                    var value = tapes.Current.GetNextValue();
+                    if (value != null) a1 = (double)value;
+                    while (a1 >= a2)
+                    {
+                        dest.Append(a2);
+                        a2 = a1;
+                        double? d = tapes.Current.GetNextValue();
+                        if (d != null) a1 = (double)d;
+                        else
+                            break;
+                    }
+                    dest.Append(a2);
+                    tapes.Next.StepBack();
                 }
             }
-            Log.WriteMergeMessage("Merge end");
+            double? v;
+            dest.Append(a1);
+            while ((v = tapes.Current.GetNextValue()) != null)
+            {
+                dest.Append((double)v);
+            }
+            //Log.WriteMergeMessage("Result:", 5);
+            Log.WriteMergeMessage("C: " + dest.ShowFile());
+            //Log.WriteMergeMessage("Merge end");
+        }
+
+        internal static bool IsSorted(Tape tape)
+        {
+            return tape.IsSorted();
         }
     }
 }

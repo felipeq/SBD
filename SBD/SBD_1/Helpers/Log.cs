@@ -21,7 +21,7 @@ namespace SBD_1.Helpers
             Console.WriteLine(msg);
             Console.ResetColor();
         }
-        public static void WriteDistMessage(string msg, int padding = 0)
+        public static void WriteDistMessage(string msg, int padding = 5)
         {
             Console.BackgroundColor = DistMsgBg;
             Console.ForegroundColor = DistMsgFg;
@@ -30,7 +30,7 @@ namespace SBD_1.Helpers
 
             Console.ResetColor();
         }
-        public static void WriteMergeMessage(string msg, int padding = 0)
+        public static void WriteMergeMessage(string msg, int padding = 5)
         {
             Console.BackgroundColor = MergeMsgBg;
             Console.ForegroundColor = MergeMsgFg;

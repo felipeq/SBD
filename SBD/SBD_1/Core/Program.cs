@@ -9,15 +9,21 @@ namespace SBD_1.Core
         {
             Tape a = new Tape("a.txt");
             Tape b = new Tape("b.txt");
-            Tape c = new Tape("c.txt", "../../../data/in_01.txt");
+            //Tape c = new Tape("c.txt", "../../../data/in_02.txt");
+            Tape c = new Tape("c.txt", args[0]);
 
-            Log.WriteInfoMessage("Natural sort\n");
+            Log.WriteInfoMessage("Natural sort");
             CyclicList<Tape> tapes = new CyclicList<Tape>() { a, b };
-            SortHelper.Distribute(c, tapes);
-            SortHelper.Merge(c, tapes);
 
+            while (!SortHelper.IsSorted(c))
+            {
+
+                SortHelper.Distribute(c, tapes);
+                SortHelper.Merge(c, tapes);
+            }
             Log.WriteInfoMessage("End of execution\n");
-            Console.ReadKey();
+            if (!(args.Length == 2 && args[1].Equals("TEST")))
+                Console.ReadKey();
         }
     }
 }

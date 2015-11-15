@@ -140,5 +140,11 @@ namespace SBD_1.Core
             _items.ForEach(obj => obj.ZeroIndex());
             _index = 0;
         }
+
+        internal void Clean()
+        {
+            _items.ForEach(obj => obj.Clean());
+            _index = -1;
+        }
     }
 }
