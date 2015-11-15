@@ -16,6 +16,36 @@ namespace SBD_01_Tests
             Assert.IsTrue(Check(input));
         }
         [TestMethod]
+        public void in_03()
+        {
+            int input = 3;
+            Assert.IsTrue(Check(input));
+        }
+        [TestMethod]
+        public void in_04()
+        {
+            int input = 4;
+            Assert.IsTrue(Check(input));
+        }
+        [TestMethod]
+        public void in_05()
+        {
+            int input = 5;
+            Assert.IsTrue(Check(input));
+        }
+        [TestMethod]
+        public void in_06()
+        {
+            int input = 6;
+            Assert.IsTrue(Check(input));
+        }
+        [TestMethod]
+        public void in_07()
+        {
+            int input = 7;
+            Assert.IsTrue(Check(input));
+        }
+        [TestMethod]
         public void in_02()
         {
             int input = 2;
