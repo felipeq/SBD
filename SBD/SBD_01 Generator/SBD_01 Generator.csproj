@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>29d3256f-8fa3-4d5e-8518-a33491c276d5</ProjectGuid>
+    <ProjectGuid>{71AF4115-561C-4AD9-8ADF-9CDC2E237FC5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SBD_01_Generator</RootNamespace>
-    <AssemblyName>SBD_01_Generator</AssemblyName>
+    <AssemblyName>SBD_01 Generator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SBD_1\SBD_01.csproj">
+      <Project>{70D11AF0-536D-4D28-806B-CB5139B70135}</Project>
+      <Name>SBD_01</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

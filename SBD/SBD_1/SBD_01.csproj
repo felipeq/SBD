@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CyclicList.cs" />
+    <Compile Include="Core\Pentagon.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Core\Program.cs" />
     <Compile Include="Helpers\Log.cs" />

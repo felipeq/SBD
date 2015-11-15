@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBD_01", "SBD_1\SBD_01.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBD_01 Tests", "SBD_01 Tests\SBD_01 Tests.csproj", "{5C0D038D-FC9F-4978-A162-4648509EBDAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBD_01 Generator", "SBD_01 Generator\SBD_01 Generator.csproj", "{71AF4115-561C-4AD9-8ADF-9CDC2E237FC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5C0D038D-FC9F-4978-A162-4648509EBDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C0D038D-FC9F-4978-A162-4648509EBDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C0D038D-FC9F-4978-A162-4648509EBDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71AF4115-561C-4AD9-8ADF-9CDC2E237FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71AF4115-561C-4AD9-8ADF-9CDC2E237FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71AF4115-561C-4AD9-8ADF-9CDC2E237FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71AF4115-561C-4AD9-8ADF-9CDC2E237FC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
