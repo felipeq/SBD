@@ -74,6 +74,12 @@ namespace SBD_1.Helpers
                     double a2 = a1;
                     var value = tapes.Current.GetNextValue();
                     if (value != null) a1 = (double)value;
+                    else
+                    {
+                        dest.Append(a2);
+                        tapes.MoveNext();
+                        break;
+                    }
                     while (a1 >= a2)
                     {
                         dest.Append(a2);
@@ -83,12 +89,14 @@ namespace SBD_1.Helpers
                         else
                             break;
                     }
+
                     dest.Append(a2);
                     tapes.Next.StepBack();
                 }
             }
             double? v;
-            dest.Append(a1);
+            //dest.Append(a1);
+            tapes.Current.StepBack();
             while ((v = tapes.Current.GetNextValue()) != null)
             {
                 dest.Append((double)v);

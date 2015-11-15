@@ -9,8 +9,10 @@ namespace SBD_1.Core
         {
             Tape a = new Tape("a.txt");
             Tape b = new Tape("b.txt");
+            string input;
             //Tape c = new Tape("c.txt", "../../../data/in_02.txt");
-            Tape c = new Tape("c.txt", args[0]);
+            input = args.Length == 0 ? "../../../data/in_01.txt" : args[0];
+            Tape c = new Tape("c.txt", input);
 
             Log.WriteInfoMessage("Natural sort");
             CyclicList<Tape> tapes = new CyclicList<Tape>() { a, b };

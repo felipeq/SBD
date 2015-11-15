@@ -69,7 +69,7 @@ namespace SBD_1.Core
             }
             _size++;
             _lastValue = val;
-            //Log.WriteInfoMessage(ShowFile());
+            Log.WriteInfoMessage(ShowFile());
         }
 
         public void Append(string line)
