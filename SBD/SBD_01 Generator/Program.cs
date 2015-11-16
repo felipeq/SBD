@@ -31,11 +31,6 @@ namespace SBD_01_Generator
                 pentagons.Clear();
             }
 
-            //ReadFromFile(ref pentagons);
-            //foreach (Pentagon p in pentagons)
-            //{
-            //    Console.WriteLine(p.ToString());
-            //}
             Console.ReadKey();
         }
 

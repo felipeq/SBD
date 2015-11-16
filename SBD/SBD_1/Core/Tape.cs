@@ -123,6 +123,11 @@ namespace SBD_1.Core
                     a = b;
                 }
             }
+            byte[] buffer = new byte[sizeof(double) * 5];
+            using (MemoryStream stream = new MemoryStream())
+            {
+                stream.Read(buffer);
+            }
             return true;
         }
     }

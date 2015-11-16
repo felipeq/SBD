@@ -9,7 +9,7 @@ namespace SBD_1.Core
         {
             Tape a = new Tape("a.txt");
             Tape b = new Tape("b.txt");
-            var input = args.Length == 0 ? "../../../data/in_01.txt" : args[0];
+            var input = args.Length == 0 ? "../../../data/pentagons_01.dat" : args[0];
             Tape c = new Tape("c.txt", input);
 
             Log.WriteInfoMessage("Natural sort");
