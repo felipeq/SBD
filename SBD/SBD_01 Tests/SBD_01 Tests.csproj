@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SBD_1\SBD_01.csproj">
+    <ProjectReference Include="..\SBD_1\SBD_01 Core.csproj">
       <Project>{70D11AF0-536D-4D28-806B-CB5139B70135}</Project>
-      <Name>SBD_01</Name>
+      <Name>SBD_01 Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

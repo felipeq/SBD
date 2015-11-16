@@ -8,26 +8,34 @@ namespace SBD_01_Generator
 {
     static class Program
     {
-        private static int AMOUNT = 5;
+        private static int AMOUNT_MIN = 1;
+        private static int AMOUNT_MAX = 99;
+
         static void Main(string[] args)
         {
             Random random = new Random();
             List<Pentagon> pentagons = new List<Pentagon>();
-            for (int i = 0; i < AMOUNT; i++)
+            for (int j = 0; j < 10; j++)
             {
-                double[] sides = new double[5];
-                for (int ii = 0; ii < 5; ii++)
+                int d = (int)(AMOUNT_MIN + Math.Floor(random.NextDouble() * AMOUNT_MAX));
+                for (int i = 0; i < d; i++)
                 {
-                    sides[ii] = random.NextDouble() * 10;
+                    double[] sides = new double[5];
+                    for (int ii = 0; ii < 5; ii++)
+                    {
+                        sides[ii] = random.NextDouble() * 10;
+                    }
+                    pentagons.Add(new Pentagon(sides));
                 }
-                pentagons.Add(new Pentagon(sides));
+                SaveToFile(pentagons, j);
+                pentagons.Clear();
             }
-            SaveToFile(pentagons);
-            ReadFromFile(ref pentagons);
-            foreach (Pentagon p in pentagons)
-            {
-                Console.WriteLine(p.ToString());
-            }
+
+            //ReadFromFile(ref pentagons);
+            //foreach (Pentagon p in pentagons)
+            //{
+            //    Console.WriteLine(p.ToString());
+            //}
             Console.ReadKey();
         }
 
@@ -41,9 +49,9 @@ namespace SBD_01_Generator
             stream.Close();
         }
 
-        private static void SaveToFile(List<Pentagon> pentagons)
+        private static void SaveToFile(List<Pentagon> pentagons, int i)
         {
-            Stream stream = File.Open("../../../data/pentagons_01.dat", FileMode.Create);
+            Stream stream = File.Open("../../../data/pentagons_" + i + ".dat", FileMode.Create);
             BinaryFormatter bformatter = new BinaryFormatter();
             Console.WriteLine("Saving random pentagons...");
             bformatter.Serialize(stream, pentagons);
